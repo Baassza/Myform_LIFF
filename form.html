@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+crossorigin="anonymous"
+/>
+<style>
+    .btn-success{
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+    .imgshow {
+        display: block;
+        max-width:300px;
+        max-height:95px;
+        width: auto;
+        height: auto;
+    }
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>ระบบ myform</title>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.php">Myform</a>
+    <form class="form-inline">
+        <button  type="button" onclick="logout()" class="btn btn-dark">ออกจากระบบ</button>
+    </form>
+</nav>
+<a class="btn btn-success" href="add.php">เพิ่มข้อมูล</a>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">ลำดับที่</th>
+        <th scope="col">รูป</th>
+        <th scope="col">ชื่อ</th>
+        <th scope="col">สกุล</th>
+        <th scope="col">เพศ</th>
+        <th scope="col">วันเกิด</th>
+        <th scope="col">ระดับการศึกษา</th>
+        <th scope="col">ที่อยู่</th>
+        <th scope="col">แก้ไข</th>
+        <th scope="col">ลบ</th>
+    </tr>
+    </thead>
+    <tbody id="content"></tbody>
+</table>
+</body>
+<script
+    charset="utf-8"
+    src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
+</script>
+<script src="form.js"></script>
+</html>
