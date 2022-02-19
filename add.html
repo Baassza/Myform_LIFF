@@ -15,7 +15,7 @@
 
   <head>
     <meta charset="UTF-8" />
-    <title>แก้ไขข้อมูล</title>
+    <title>เพิ่มข้อมูล</title>
   </head>
   <style>
     .avatar {
@@ -92,7 +92,7 @@
         <br> 
         <div class="form-group">
           <label for="birthday">วันเกิด</label>
-          <input type="date" class="form-control" id="birthday" name="birthday" autocomplete="off" placeholder="dd-mm-yyyy" />
+          <input type="date" class="form-control" id="birthday" name="birthday" autocomplete="off" />
         </div>
         <br>
         <div class="form-group">
@@ -125,10 +125,10 @@
         <div class="d-flex justify-content-center">
           <button
             type="button"
-            class="btn btn-warning text-white"
+            class="btn btn-success text-white"
             onclick="senddata()"
           >
-            แก้ไขข้อมูล
+            เพิ่มข้อมูล
           </button>
         </div>
         <br>
@@ -147,6 +147,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="edit.js"></script>
+    <script src="add.js"></script>
   </body>
 </html>
