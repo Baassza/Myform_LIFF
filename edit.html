@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous"
+  />
+
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css"
+  />
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>แก้ไขข้อมูล</title>
+  </head>
+  <style>
+    .avatar {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+      margin-left: 65px;
+    }
+    .sex{
+      display:inline;
+    }
+  </style>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">Myform</a>
+    </nav>
+    <section
+      class="d-flex justify-content-center min-vh-100 align-items-center"
+    >
+      <form id="myform">
+        <img src="upload/bg.png" class="avatar" id="avatar" />
+        <div class="d-flex justify-content-center">
+          <input
+            type="file"
+            id="upload"
+            accept="image/*"
+            name="img"
+            onchange="loadFile(event)"
+            hidden
+          />
+          <label for="upload" class="btn btn-dark">เลือกภาพ</label>
+        </div>
+        <div class="form-group">
+          <label for="name">ชื่อ</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            autocomplete="off"
+          />
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="sername">สกุล</label>
+          <input
+            type="text"
+            class="form-control"
+            id="sername"
+            name="sername"
+            autocomplete="off"
+          />
+        </div>
+        <br>
+        <div class="form-group">
+        <table>
+            <tr>
+                <td><label  for="sex">เพศ</label></td>
+                <td>
+                  <select class="form-select" id="sexsel" name="sexsel" required onchange="disablesexform()">
+                        <option>ไม่ระบุ</option>
+                        <option>ชาย</option>
+                        <option>หญิง</option>
+                        <option>อื่นๆ</option>
+                  </select>
+                </td>
+                <td>
+                   <input type="text" class="form-control" disabled="true" id="sex" name="sex" autocomplete="off"/>
+                </td>
+            </tr>
+        </table>         
+        </div>   
+        <br> 
+        <div class="form-group">
+          <label for="birthday">วันเกิด</label>
+          <input type="date" class="form-control" id="birthday" name="birthday" autocomplete="off" />
+        </div>
+        <br>
+        <div class="form-group">
+          <div class="form-inline">
+            <label for="edu">การศึกษา &nbsp;</label>
+            <select class="form-select" id="edu" name="edu">
+              <option>ไม่ระบุ</option>
+              <option>ต่ำกว่าชั้นประถมศึกษา</option>
+              <option>ชั้นประถมศึกษา</option>
+              <option>ชั้นมัธยมศึกษาตอนต้น</option>
+              <option>ชั้นมัธยมศึกษาปลายหรือเทียบเท่า</option>
+              <option>อนุปริญญาตรีหรือเทียบเท่า</option>
+              <option>ปริญญาตรี</option>
+              <option>สูงกว่าปริญญาตรี</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="home">ที่อยู่</label>
+          <textarea
+            class="form-control"
+            rows="5"
+            id="home"
+            name="home"
+            autocomplete="off"
+          ></textarea>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn btn-warning text-white"
+            onclick="senddata()"
+          >
+            แก้ไขข้อมูล
+          </button>
+        </div>
+        <br>
+      </form>
+    </section>
+    <script
+    charset="utf-8"
+    src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="edit.js"></script>
+  </body>
+</html>
