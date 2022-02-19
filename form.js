@@ -9,35 +9,27 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 liff.init({ liffId: '1656905982-G3NEEoYZ' });
-window.onload =  () => {
+window.onload = () => {
   if (!liff.isLoggedIn()) {
     liff.login({
       redirectUri: 'https://web-platform-a5zbpo.stackblitz.io/form.html',
     });
   } else {
-    liff.getProfile().then( (profile) => {
-      const uid = profile.userId
-      getForm(getData(uid));
-      console.log(profile);
+    liff.getProfile().then(async (profile) => {
+      const uid = profile.userId;
+      const data = await getData(uid)
+      getForm(data)
     });
   }
 };
 
-function getData(uid) {
-  const docRef = db.collection(uid).doc("form");
-  docRef
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        console.log(Object.values(doc.data()))
-      } else {
-        docRef.doc('form').set({});
-        return []
-      }
-    })
-    .catch((error) => {
-      console.log('Error getting document:', error);
-    });
+async function getData(uid) {
+  let data = [];
+  const querySnapshot = await db.collection(uid).get();
+  querySnapshot.forEach((doc) => {
+    data.push(doc.data());
+  });
+  return data
 }
 
 function getForm(data) {
@@ -48,7 +40,7 @@ function getForm(data) {
     textHTML += '<tr>';
     textHTML += '<th scope="row">' + i.toString() + '</th>';
     textHTML +=
-      '<td>' + '<img class="imgshow" src="upload/' + element.img + '"/></td>';
+      '<td>' + '<img class="imgshow" src="' + element.img + '"/></td>';
     textHTML += '<td>' + element.name + '</td>';
     textHTML += '<td>' + element.sername + '</td>';
     textHTML += '<td>' + element.gender + '</td>';
@@ -68,5 +60,6 @@ function getForm(data) {
     textHTML += '</tr>';
     i++;
   });
+
   tabeldata.innerHTML = textHTML;
 }
