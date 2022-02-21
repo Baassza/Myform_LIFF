@@ -94,8 +94,15 @@ async function deletedata(id) {
         const file = ref.child(path);
         await file.delete();
       }
-      await db.collection('uid').doc('id').delete();
-      location.reload()
+      await db.collection(uid).doc(id).delete();
+      Swal.fire({
+        title: 'การลบข้อมูล',
+        text: 'การลบข้อมูลเสร็จสิ้น',
+        icon: 'success',
+        timer: 3000,
+      }).then(function () {
+        location.reload()
+      });
     }
   });
 }
