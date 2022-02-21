@@ -17,7 +17,6 @@ window.onload = async () => {
     });
   } else {
     const uid = await getUID();
-    console.log(uid);
     const data = await getData(uid);
     getForm(data);
   }
@@ -88,13 +87,15 @@ async function deletedata(id) {
       const docRef = db.collection(uid).doc(id);
       const loadrow = await docRef.get();
       const row = await loadrow.data();
-      if (row.img !== defaultURL) {
+      console.log(row.img)
+      if (row.img != defaultURL) {
         const path = getPathStorageFromUrl(row.img);
         const ref = firebase.storage().ref();
         const file = ref.child(path);
         await file.delete();
       }
-      await db.collection(uid).doc(id).delete();
+      console.log(id)
+      //await db.collection(uid).doc(id).delete();
       Swal.fire({
         title: 'การลบข้อมูล',
         text: 'การลบข้อมูลเสร็จสิ้น',
