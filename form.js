@@ -67,5 +67,5 @@ function getForm(data) {
 }
 
 function deletedata(id){
-
+  console.log(id)
 }
