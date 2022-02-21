@@ -9,19 +9,25 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 liff.init({ liffId: '1656905982-G3NEEoYZ' });
-window.onload = () => {
+window.onload = async () => {
   if (!liff.isLoggedIn()) {
     liff.login({
+      //https://baassza.github.io/Myform_LIFF/
       redirectUri: 'https://web-platform-a5zbpo.stackblitz.io/form.html',
     });
   } else {
-    liff.getProfile().then(async (profile) => {
-      const uid = profile.userId;
+      const uid = await getUID()
+      console.log(uid)
       const data = await getData(uid)
       getForm(data)
-    });
   }
 };
+
+async function getUID(){
+  const data = await liff.getProfile()
+  const uid = await data.userId
+  return uid
+}
 
 async function getData(uid) {
   let data = [];
@@ -66,6 +72,23 @@ function getForm(data) {
   tabeldata.innerHTML = textHTML;
 }
 
-function deletedata(id){
-  console.log(id)
+async function deletedata(id){
+  const defaultURL ='https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'
+  const uid = await getUID()
+  const docRef = db.collection(uid).doc(id)
+  const loadrow = await docRef.get()
+  const row = await loadrow.data()
+  if(row.img!==defaultURL){
+    const path = getPathStorageFromUrl(row.img)
+    console.log(path)
+  }
+}
+
+function getPathStorageFromUrl(url){
+  const baseUrl = "https://firebasestorage.googleapis.com/v0/b/myform-liff.appspot.com/o/";
+  let imagePath = url.replace(baseUrl,"");
+  const indexOfEndPath = imagePath.indexOf("?");
+  imagePath = imagePath.substring(0,indexOfEndPath);
+  imagePath = imagePath.replace("%2F","/");
+  return imagePath;
 }
