@@ -27,7 +27,9 @@ async function getData(uid) {
   let data = [];
   const querySnapshot = await db.collection(uid).get();
   querySnapshot.forEach((doc) => {
-    data.push(doc.data());
+    let row = doc.data()
+    row.id = doc.id
+    data.push(row);
   });
   return data
 }
@@ -48,13 +50,13 @@ function getForm(data) {
     textHTML += '<td>' + element.edu + '</td>';
     textHTML += '<td>' + element.home + '</td>';
     textHTML +=
-      '<td><a class="btn btn-warning text-white" href="edit.html?ID=' +
-      element.ID +
+      '<td><a class="btn btn-warning text-white" href="edit.html?id=' +
+      element.id +
       '">แก้ไขข้อมูล</a>' +
       '</td>';
     textHTML +=
       '<td><a class="btn btn-danger" onclick="deletedata(' +
-      element.ID +
+      element.id +
       ')">ลบข้อมูล</a>' +
       '</td>';
     textHTML += '</tr>';
@@ -62,4 +64,8 @@ function getForm(data) {
   });
 
   tabeldata.innerHTML = textHTML;
+}
+
+function deletedata(id){
+
 }
