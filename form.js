@@ -55,9 +55,9 @@ function getForm(data) {
       '">แก้ไขข้อมูล</a>' +
       '</td>';
     textHTML +=
-      '<td><a class="btn btn-danger" onclick="deletedata(' +
+      '<td><a class="btn btn-danger" onclick="deletedata(\'' +
       element.id +
-      ')">ลบข้อมูล</a>' +
+      '\')">ลบข้อมูล</a>' +
       '</td>';
     textHTML += '</tr>';
     i++;
