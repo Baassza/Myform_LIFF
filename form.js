@@ -95,6 +95,7 @@ async function deletedata(id) {
         await file.delete();
       }
       await db.collection('uid').doc('id').delete();
+      location.reload()
     }
   });
 }
