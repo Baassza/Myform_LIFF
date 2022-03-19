@@ -46,53 +46,62 @@ function loadFile(event) {
   reader.readAsDataURL(event.target.files[0]);
 }
 async function senddata() {
-  if (vaild() === true) {
-    const defaultURL =
-      'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png';
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const id = urlParams.get('id');
-    const uid = await getUID();
-    const docRef = db.collection(uid).doc(id);
-    const loadrow = await docRef.get();
-    const row = await loadrow.data();
-    const image = document.getElementById('upload');
-    const imagename = document.getElementById('upload').files.name;
-    const name = document.getElementById('name').value;
-    const sername = document.getElementById('sername').value;
-    const sexsel = document.getElementById('sexsel').value;
-    const sex = document.getElementById('sex').value;
-    const birthday = document.getElementById('birthday').value;
-    const edu = document.getElementById('edu').value;
-    const home = document.getElementById('home').value;
-    const imageL = document.getElementById('upload').files;
-    if (imageL.length > 0) {
-      if (row.img != defaultURL) {
-        const path = getPathStorageFromUrl(row.img);
-        const ref = firebase.storage().ref();
-        const file = ref.child(path);
-        await file.delete();
-        const imgname = await uploadimage(imageL[0]);
-        docRef.update({ "img": imgname });
+  Swal.fire({
+    title: 'คุณต้องการแก้ไขข้อมูลนี้หรือไม่',
+    icon: 'warning',
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'ใช่',
+    denyButtonText: 'ไม่',
+  }).then(async (result) => {
+    if (vaild() === true) {
+      const defaultURL =
+        'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png';
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const id = urlParams.get('id');
+      const uid = await getUID();
+      const docRef = db.collection(uid).doc(id);
+      const loadrow = await docRef.get();
+      const row = await loadrow.data();
+      const image = document.getElementById('upload');
+      const imagename = document.getElementById('upload').files.name;
+      const name = document.getElementById('name').value;
+      const sername = document.getElementById('sername').value;
+      const sexsel = document.getElementById('sexsel').value;
+      const sex = document.getElementById('sex').value;
+      const birthday = document.getElementById('birthday').value;
+      const edu = document.getElementById('edu').value;
+      const home = document.getElementById('home').value;
+      const imageL = document.getElementById('upload').files;
+      if (imageL.length > 0) {
+        if (row.img != defaultURL) {
+          const path = getPathStorageFromUrl(row.img);
+          const ref = firebase.storage().ref();
+          const file = ref.child(path);
+          await file.delete();
+          const imgname = await uploadimage(imageL[0]);
+          docRef.update({ img: imgname });
+        }
       }
+      docRef.update({
+        birthday: birthday,
+        edu: edu,
+        gender: sexsel === 'อื่นๆ' ? sex : sexsel,
+        home: home,
+        name: name,
+        sername: sername,
+      });
+      Swal.fire({
+        title: 'การบันทึกข้อมูล',
+        text: 'การบันทึกข้อมูลเสร็จสิ้น',
+        icon: 'success',
+        timer: 3000,
+      }).then(function () {
+        window.location = 'form.html';
+      });
     }
-    docRef.update({
-      "birthday": birthday,
-      "edu": edu,
-      "gender": sexsel === 'อื่นๆ' ? sex : sexsel,
-      "home": home,
-      "name": name,
-      "sername": sername
-    });
-    Swal.fire({
-      title: 'การบันทึกข้อมูล',
-      text: 'การบันทึกข้อมูลเสร็จสิ้น',
-      icon: 'success',
-      timer: 3000,
-    }).then(function () {
-      window.location = 'form.html';
-    });
-  }
+  });
 }
 function vaild() {
   const nametext = document.getElementById('name');
