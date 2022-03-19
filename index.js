@@ -4,7 +4,10 @@ function login() {
     liff.login({
       redirectUri: 'https://web-platform-a5zbpo.stackblitz.io/form.html',
     });
-  } else {
-    window.location = './form.html';
   }
+}
+
+if (liff.isLoggedIn()) {
+  document.getElementById('carouselExampleSlidesOnly').style.display = 'none';
+  window.location = './form.html';
 }
