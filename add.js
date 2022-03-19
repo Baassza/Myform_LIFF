@@ -1,4 +1,4 @@
-liff.init({ liffId: '1656905982-G3NEEoYZ' });
+
 window.onload = login();
 const firebaseConfig = {
   apiKey: 'AIzaSyDyZrD317VqSjHEwt7TgV1G4xb66pGrVGg',
