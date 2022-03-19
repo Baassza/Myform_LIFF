@@ -72,7 +72,7 @@ async function senddata() {
         const ref = firebase.storage().ref();
         const file = ref.child(path);
         await file.delete();
-        const imgname = await uploadimage(image);
+        const imgname = await uploadimage(imageL[0]);
         docRef.update({ "img": imgname });
       }
     }
