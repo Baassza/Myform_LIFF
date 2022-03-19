@@ -40,61 +40,70 @@ function loadFile(event) {
 }
 
 async function senddata() {
-  if (vaild() === true) {
-    const image = document.getElementById('upload');
-    const imagename = document.getElementById('upload').files.name;
-    const name = document.getElementById('name').value;
-    const sername = document.getElementById('sername').value;
-    const sexsel = document.getElementById('sexsel').value;
-    const sex = document.getElementById('sex').value;
-    const birthday = document.getElementById('birthday').value;
-    const edu = document.getElementById('edu').value;
-    const home = document.getElementById('home').value;
-    const imageL = document.getElementById('upload').files;
-    let imgURL =
-      'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png';
-    if (imageL.length > 0) {
-      imgURL = await uploadimage(imageL[0]);
-    }
-    const uid = await getUID();
-    db.collection(uid)
-      .add({
-        name: name,
-        sername: sername,
-        gender: sexsel === 'อื่นๆ' ? sex : sexsel,
-        birthday: birthday,
-        edu: edu,
-        home: home,
-        img: imgURL,
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'การบันทึกข้อมูล',
-          text: 'การบันทึกข้อมูลเสร็จสิ้น',
-          icon: 'success',
-          timer: 3000,
-        }).then(function () {
-          location.reload();
+  Swal.fire({
+    title: 'คุณต้องการเพิ่มข้อมูลนี้หรือไม่',
+    icon: 'warning',
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'ใช่',
+    denyButtonText: 'ไม่',
+  }).then(async (result) => {
+    if (vaild() === true) {
+      const image = document.getElementById('upload');
+      const imagename = document.getElementById('upload').files.name;
+      const name = document.getElementById('name').value;
+      const sername = document.getElementById('sername').value;
+      const sexsel = document.getElementById('sexsel').value;
+      const sex = document.getElementById('sex').value;
+      const birthday = document.getElementById('birthday').value;
+      const edu = document.getElementById('edu').value;
+      const home = document.getElementById('home').value;
+      const imageL = document.getElementById('upload').files;
+      let imgURL =
+        'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png';
+      if (imageL.length > 0) {
+        imgURL = await uploadimage(imageL[0]);
+      }
+      const uid = await getUID();
+      db.collection(uid)
+        .add({
+          name: name,
+          sername: sername,
+          gender: sexsel === 'อื่นๆ' ? sex : sexsel,
+          birthday: birthday,
+          edu: edu,
+          home: home,
+          img: imgURL,
+        })
+        .then(() => {
+          Swal.fire({
+            title: 'การบันทึกข้อมูล',
+            text: 'การบันทึกข้อมูลเสร็จสิ้น',
+            icon: 'success',
+            timer: 3000,
+          }).then(function () {
+            location.reload();
+          });
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด',
+            text: 'กรุณาติดต่อผู้ดูแลระบบ',
+            timer: 3000,
+          }).then(() => {
+            location.reload();
+          });
         });
-      })
-      .catch(() => {
-        Swal.fire({
-          icon: 'error',
-          title: 'เกิดข้อผิดพลาด',
-          text: 'กรุณาติดต่อผู้ดูแลระบบ',
-          timer: 3000,
-        }).then(() => {
-          location.reload();
-        });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาด',
+        text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+        timer: 3000,
       });
-  } else {
-    Swal.fire({
-      icon: 'error',
-      title: 'เกิดข้อผิดพลาด',
-      text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
-      timer: 3000,
-    });
-  }
+    }
+  });
 }
 function vaild() {
   const nametext = document.getElementById('name');
