@@ -10,6 +10,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 liff.init({ liffId: '1656905982-G3NEEoYZ' });
 window.onload = async () => {
+  localStorage.removeItem('login');
   if (!liff.isLoggedIn()) {
     liff.login({
       //https://baassza.github.io/Myform_LIFF/
@@ -120,5 +121,3 @@ function logout() {
   liff.logout();
   window.location = 'index.html';
 }
-
-
